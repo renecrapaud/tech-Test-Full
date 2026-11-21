@@ -5,12 +5,12 @@ const Detalle = ({ listaPedidos }) => {
     const elemento = listaPedidos.find((n) => n.id === id);
 
     return (
-        <>
+        <div className="margenContenido">
             <header className="order-header">
                 <div>
                     <h1>Detalle del Pedido</h1>
                     <p className="order-subtitle">
-                        Información general y desglose de compra
+                        Información general de {id}
                     </p>
                 </div>
                 <div className="order-status">
@@ -97,7 +97,7 @@ const Detalle = ({ listaPedidos }) => {
                     </table>
                 </div>
             </section>
-        </>
+        </div>
     );
 };
 

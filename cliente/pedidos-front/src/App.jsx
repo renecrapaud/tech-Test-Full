@@ -4,6 +4,8 @@ import Detalle from './components/Detalle'
 import Encabezado from './components/Encabezado'
 import Pie from './components/Pie'
 
+import { Container } from '@mui/material'
+
 import {
     BrowserRouter as Router,
     Routes, Route
@@ -36,7 +38,7 @@ function App(props) {
     }
 
     return (
-      <>
+      <Container>
         <Router>
           <Encabezado />
           <Routes>
@@ -50,7 +52,7 @@ function App(props) {
           </Routes>
           <Pie />
         </Router>
-      </>
+      </Container>
     )
 }
 export default App

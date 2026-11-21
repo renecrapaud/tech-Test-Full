@@ -1,52 +1,59 @@
 import { Link } from 'react-router-dom'
 
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Select, MenuItem } from '@mui/material'
+import { Input } from '@mui/material'
+
 const Pedidos = ({ listaPedidos, busqueda, manejadorBusqueda, campo, setCampo } ) => {
 
     return (
-      <>
+        <div className="margenContenido">
+            <div className="tituloIzq">
             <h3> Vista general, lista de pedidos </h3>
-            <p>
-              <span>Buscar por columna: </span>
-              <select value={campo} onChange={e => setCampo(e.target.value)}>
-                  <option value="id">Pedido</option>
-                  <option value="nombre">Nombre</option>
-                  <option value="correo">Correo</option>
-                  <option value="estado">Estado</option>
-                </select>
-                <input value={busqueda} onChange={manejadorBusqueda}/>
-            </p>
-        <table>
-          <thead>
-            <tr>
-              <th>Pedido</th>
-              <th>Cliente</th>
-              <th>Dirección Correo</th>
-              <th>Productos</th>
-              <th>Total</th>
-              <th>Estado</th>
-              <th>Detalle</th>
-            </tr>
-          </thead>
-          <tbody>
+              <div>
+                <span>Buscar por columna: </span>
+                <Select value={campo} onChange={e => setCampo(e.target.value)} labelId="demo-select-small-label">
+                    <MenuItem value="id">Pedido</MenuItem>
+                    <MenuItem value="nombre">Nombre</MenuItem>
+                    <MenuItem value="correo">Correo</MenuItem>
+                    <MenuItem value="estado">Estado</MenuItem>
+                </Select>
+                <Input value={busqueda} onChange={manejadorBusqueda}/>
+              </div>
+            </div>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Pedido</TableCell>
+              <TableCell>Cliente</TableCell>
+              <TableCell>Dirección Correo</TableCell>
+              <TableCell>Productos</TableCell>
+              <TableCell>Total</TableCell>
+              <TableCell>Estado</TableCell>
+              <TableCell>Detalle</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
           {(listaPedidos == '') ?
             <tr><td colSpan="7"><h3>No hay resultados que coincidan con el
                         criterio de búsqueda</h3></td></tr>
           :
             listaPedidos.map(
               pedido =>
-                <tr key={pedido.id}>
-                  <td>{pedido.id}</td>
-                  <td>{pedido.cliente.nombre} </td>
-                  <td>{pedido.cliente.correoElectronico}</td>
-                  <td>{pedido.pedido.cantidad}</td>
-                  <td>{pedido.pedido.precio}</td>
-                  <td>{pedido.pedido.estadoPedido}</td>
-                  <td><Link to={`/detalle/${pedido.id}`}>Ver</Link></td>
-                </tr>
+                <TableRow  key={pedido.id}>
+                  <TableCell>{pedido.id}</TableCell>
+                  <TableCell>{pedido.cliente.nombre} </TableCell>
+                  <TableCell>{pedido.cliente.correoElectronico}</TableCell>
+                  <TableCell>{pedido.pedido.cantidad}</TableCell>
+                  <TableCell>{pedido.pedido.precio}</TableCell>
+                  <TableCell>{pedido.pedido.estadoPedido}</TableCell>
+                  <TableCell><Link to={`/detalle/${pedido.id}`}>Ver</Link></TableCell>
+                </TableRow >
             )}
-          </tbody>
-        </table>
-      </>
+          </TableBody>
+                </Table>
+            </TableContainer>
+      </div>
     )
 }
 
