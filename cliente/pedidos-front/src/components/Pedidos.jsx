@@ -16,7 +16,11 @@ const Pedidos = ({ listaPedidos }) => {
             </tr>
           </thead>
           <tbody>
-            {listaPedidos.map(
+          {(listaPedidos == '') ?
+            <tr><td colSpan="7"><h3>No hay resultados que coincidan con el
+                        criterio de búsqueda</h3></td></tr>
+          :
+            listaPedidos.map(
               pedido =>
                 <tr key={pedido.id}>
                   <td>{pedido.id}</td>
