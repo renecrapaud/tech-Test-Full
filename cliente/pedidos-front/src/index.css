@@ -14,7 +14,10 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   background-color: var(--bg-page);
   color: var(--text-main);
   padding: 2rem 1rem;
@@ -30,15 +33,15 @@ body {
 }
 
 /* Lista de pedidos */
-.margenContenido{
-    margin-top: 2em;
-    margin-bottom: 2em;
+.margenContenido {
+  margin-top: 2em;
+  margin-bottom: 2em;
 }
 
-.tituloIzq{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2em;
+.tituloIzq {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
 }
 /* Seccion detalle:  Encabezado */
 .order-header {
@@ -172,8 +175,12 @@ dd a {
   color: var(--text-muted);
 }
 
-.text-center { text-align: center; }
-.text-right { text-align: right; }
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
 
 .total-label {
   font-weight: 600;
@@ -185,7 +192,6 @@ dd a {
   font-weight: 700;
   color: var(--text-main);
 }
-
 
 /* Footer */
 .footer {
