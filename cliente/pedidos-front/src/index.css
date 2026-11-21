@@ -1,6 +1,6 @@
 table {
   font-family: arial, sans-serif;
-  border-collapse: collapse;
+  border-collapse: separate;
   width: 100%;
 }
 
@@ -12,4 +12,181 @@ td, th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+:root {
+  --bg-page: #f4f6f9;
+  --bg-card: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --primary: #2563eb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  padding: 2rem 1rem;
+  line-height: 1.5;
+}
+
+.order-container {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Encabezado */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.order-header h1 {
+  font-size: 1.5rem;
+}
+
+.order-subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Badge de Estatus */
+.order-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.badge {
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status--enviado {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+/* Grid de 2 columnas para Cliente y Entrega */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Tarjetas */
+.card {
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.card-title {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Listas de definición (Clave - Valor) */
+.data-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.data-row--block {
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+dt {
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+dd {
+  font-weight: 500;
+}
+
+dd a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.address-box {
+  background-color: var(--bg-page);
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+/* Tabla de productos */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.order-table th,
+.order-table td {
+  padding: 0.85rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.order-table th {
+  background-color: var(--bg-page);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.total-label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.total-amount {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
 }

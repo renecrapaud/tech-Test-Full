@@ -1,13 +1,19 @@
 import { useState } from 'react'
 import Pedido from './components/Pedidos'
+import Detalle from './components/Detalle'
 import Encabezado from './components/Encabezado'
 import Pie from './components/Pie'
+
+import {
+    BrowserRouter as Router,
+    Routes, Route
+} from 'react-router-dom'
 
 import './App.css'
 
 function App(props) {
 
-    const [pedidos, setPedidos] = useState(props.pedidos)
+    const [ pedidos, setPedidos ]  = useState(props.pedidos)
     const [campoBusca, setCampoBusca] = useState('')
     const [colSel, setColumnaSel] = useState('id')
 
@@ -30,12 +36,21 @@ function App(props) {
     }
 
     return (
-        <>
-          <Encabezado busqueda={campoBusca} manejadorBusqueda={manejaCampoBusca}
-              campo={colSel} setCampo={setColumnaSel} />
-          <Pedido listaPedidos={pedidosFiltrados} />
+      <>
+        <Router>
+          <Encabezado />
+          <Routes>
+              <Route path="/detalle/:id" element={
+                  <Detalle listaPedidos={pedidosFiltrados}></Detalle>
+              } />
+              <Route path="/" element={
+                  <Pedido listaPedidos={pedidosFiltrados} busqueda={campoBusca} manejadorBusqueda={manejaCampoBusca}
+                    campo={colSel} setCampo={setColumnaSel}/>
+              } />
+          </Routes>
           <Pie />
-        </>
+        </Router>
+      </>
     )
 }
 export default App
