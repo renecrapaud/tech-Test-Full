@@ -9,19 +9,22 @@ import Detalle from "./components/Detalle";
 import Encabezado from "./components/Encabezado";
 import Pie from "./components/Pie";
 
-
+import { useConfig } from "./context/ConfigContext.jsx";
 import "./App.css";
 
 function App() {
   const [pedidos, setPedidos] = useState([]);
   const [campoBusca, setCampoBusca] = useState("");
   const [colSel, setColumnaSel] = useState("id");
+  const { pedidosApiUrl } = useConfig()
 
     useEffect(() => {
-        axios.get('http://172.24.102.112:8081/pedidos').then(response => {
-          setPedidos(response.data)
-      })
-    }, [])
+    if (!pedidosApiUrl) return;
+    axios.get(pedidosApiUrl).then(response => {
+        setPedidos(response.data)
+    })
+  }, [pedidosApiUrl])
+
   const extractores = {
     id: (p) => p.id,
     nombre: (p) => p.cliente?.nombre,
