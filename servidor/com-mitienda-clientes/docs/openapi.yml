@@ -111,6 +111,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundErrorRes'
+    delete:
+      summary: Eliminar datos de un cliente
+      tags:
+        - Clientes
+      responses:
+        '200':
+          description: Cliente eliminado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '404':
+          description: Cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRes'
 
 components:
   schemas:
