@@ -1,20 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from 'axios'
+
+import { Container } from "@mui/material";
+
 import Pedido from "./components/Pedidos";
 import Detalle from "./components/Detalle";
 import Encabezado from "./components/Encabezado";
 import Pie from "./components/Pie";
 
-import { Container } from "@mui/material";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
-function App(props) {
-  const [pedidos, setPedidos] = useState(props.pedidos);
+function App() {
+  const [pedidos, setPedidos] = useState([]);
   const [campoBusca, setCampoBusca] = useState("");
   const [colSel, setColumnaSel] = useState("id");
 
+    useEffect(() => {
+        axios.get('http://172.24.102.112:8081/pedidos').then(response => {
+          setPedidos(response.data)
+      })
+    }, [])
   const extractores = {
     id: (p) => p.id,
     nombre: (p) => p.cliente?.nombre,
