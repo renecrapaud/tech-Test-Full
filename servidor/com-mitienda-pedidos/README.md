@@ -4,13 +4,21 @@ Aplicación desplegada en render.com:
 
 https://pedidos-en-linea-back.onrender.com/
 
+*** Debido a que usé la capa gratuita del hosting de render, el servicio se detiene después de unos minutos de inactividad. 
+    Por ello, es posible que en la primera solicitud que se reciba después de un tiempo, el sistema tarde hasta un minutlo 
+    en responder, es lo que tarda aproximadamente en levantar. Por lo que algunas solicitudes podrían también tardar en 
+    completarse. Si se hacen llamadas ya iniciado el servicio, la respuesta se obtiene más rápido.
+    
 Rutas:
     /clientes
-
     Tiene acceso a los datos de la colección de clientes.
 
     /pedidos
     Es para el manejo de los datos de la colección pedidos.
+
+Los archivos con las definiciones de API están en la capeta /docs
+openapi-clientes.yml
+openapi-pedidos.yml
 
 Esta parte del código fue desarrollada con Java 17 y el framework springboot 4.2.0
 
