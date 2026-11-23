@@ -36,33 +36,31 @@ public class PedidosServiceImpl implements PedidosService{
 
     @Override
     public Pedido addNew(PedidoRequest pedidoReq) {
-        Cliente cliente = clientesRepository.findById(pedidoReq.clienteId())
-            .orElseThrow(() -> new IllegalArgumentException(
-                "No existe un cliente con id: " + pedidoReq.clienteId()
-            ));
-            Pedido pedido = new Pedido();
-            pedido.setCliente(cliente);
-            pedido.setEntrega(pedidoReq.entrega());
-            pedido.setPedido(pedidoReq.pedido());
+        Pedido pedido = armarPedidoObj(pedidoReq, null);
         return repository.insert(pedido);
     }
 
     @Override
     public Pedido update(PedidoRequest pedidoReq) {
-        Cliente cliente = clientesRepository.findById(pedidoReq.clienteId())
-            .orElseThrow(() -> new IllegalArgumentException(
-                "No existe un cliente con id: " + pedidoReq.clienteId()
-            ));
-            Pedido pedido = new Pedido();
-            pedido.setId(pedidoReq.clienteId());
-            pedido.setCliente(cliente);
-            pedido.setEntrega(pedidoReq.entrega());
-            pedido.setPedido(pedidoReq.pedido());
+        Pedido pedido = armarPedidoObj(pedidoReq, pedidoReq.clienteId());
         return repository.save(pedido);
     }
 
     @Override
     public void delete(String id) {
         repository.deleteById(id);
+    }
+
+    private Pedido armarPedidoObj(PedidoRequest pedidoReq, String clienteId){
+        Cliente cliente = clientesRepository.findById(pedidoReq.clienteId())
+            .orElseThrow(() -> new IllegalArgumentException(
+                "No existe un cliente con id: " + clienteId
+            ));
+        Pedido pedido = new Pedido();
+        pedido.setId(clienteId);
+        pedido.setCliente(cliente);
+        pedido.setEntrega(pedidoReq.entrega());
+        pedido.setPedido(pedidoReq.pedido());
+        return pedido;
     }
 }
