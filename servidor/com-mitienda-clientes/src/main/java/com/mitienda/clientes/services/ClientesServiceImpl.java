@@ -30,4 +30,19 @@ public class ClientesServiceImpl implements ClientesService{
         return repository.findById(id);
     }
 
+    @Override
+    public Cliente addNew(Cliente cliente) {
+        return repository.insert(cliente);
+    }
+
+    @Override
+    public Cliente update(Cliente cliente) {
+        return repository.save(cliente);
+    }
+
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
+
 }
