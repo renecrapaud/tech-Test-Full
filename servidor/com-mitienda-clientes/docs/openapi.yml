@@ -5,7 +5,7 @@ info:
   description: Servicio API que proporciona los métodos de creación, consulta, actualiación y eliminación de clientes en MongoDB.
 
 servers:
-  - url: http://localhost:8080/api
+  - url: http://localhost:8080
     description: Servidor local
 
 paths:
@@ -121,7 +121,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Cliente'
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  description:
+                    type: string
+                    example: Registro eliminado
         '404':
           description: Cliente no encontrado
           content:

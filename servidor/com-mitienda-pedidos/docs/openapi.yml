@@ -1,0 +1,273 @@
+openapi: 3.0.3
+info:
+  title: API de Administración de Pedidos
+  version: 1.0.0
+  description: Servicio independiente para la gestión de pedidos y consulta con datos agregados de cliente.
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+
+paths:
+  /pedidos:
+    get:
+      summary: Listar pedidos con información del cliente
+      description: Devuelve los pedidos combinados con los datos básicos del cliente.
+      tags:
+        - Pedidos
+      responses:
+        '200':
+          description: Lista de pedidos obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PedidoResponse'
+
+    post:
+      summary: Crear un nuevo pedido asociado a un cliente existente
+      tags:
+        - Pedidos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrearPedidoRequest'
+      responses:
+        '201':
+          description: Pedido creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PedidoResponse'
+        '400':
+          description: Datos del pedido inválidos o clienteId inexistente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /pedidos/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Identificador único del pedido
+        schema:
+          type: string
+        example: "PED-1024"
+
+    get:
+      summary: Obtener detalle de un pedido por ID
+      tags:
+        - Pedidos
+      responses:
+        '200':
+          description: Pedido encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PedidoResponse'
+        '404':
+          description: Pedido no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRes'
+
+  /pedidos/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "PED-1024"
+
+    put:
+      summary: Actualizar datos de un pedido
+      tags:
+        - Pedidos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedidoResponse'
+      responses:
+        '200':
+          description: Cliente actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PedidoResponse'
+        '404':
+          description: Cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRes'
+    delete:
+      summary: Eliminar datos de un Pedido
+      tags:
+        - Pedidos
+      responses:
+        '200':
+          description: Pedido eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  description:
+                    type: string
+                    example: Registro eliminado
+        '404':
+          description: Pedido no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRes'
+
+
+components:
+  schemas:
+    # --- Esquemas de Entrada (Command) ---
+    CrearPedidoRequest:
+      type: object
+      required:
+        - clienteId
+        - entrega
+        - pedido
+      properties:
+        clienteId:
+          type: string
+          description: Referencia al identificador del cliente en el servicio de clientes
+          example: "CLI-001"
+        entrega:
+          $ref: '#/components/schemas/Entrega'
+        pedido:
+          $ref: '#/components/schemas/CrearDetallePedido'
+
+    CrearDetallePedido:
+      type: object
+      required:
+        - codigoProducto
+        - cantidad
+        - precio
+      properties:
+        codigoProducto:
+          type: string
+          example: "PROD-889"
+        cantidad:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 2
+        precio:
+          type: number
+          format: double
+          minimum: 0
+          example: 499.50
+
+    # --- Esquemas de Salida (Query / DTO Frontend) ---
+    PedidoResponse:
+      type: object
+      required:
+        - id
+        - cliente
+        - entrega
+        - pedido
+      properties:
+        id:
+          type: string
+          example: "PED-1024"
+        cliente:
+          $ref: '#/components/schemas/ClienteResumen'
+        entrega:
+          $ref: '#/components/schemas/Entrega'
+        pedido:
+          $ref: '#/components/schemas/DetallePedido'
+
+    ClienteResumen:
+      type: object
+      description: Proyección de datos del cliente requerida por el frontend
+      required:
+        - nombre
+        - apellidoPat
+        - correoElectronico
+      properties:
+        nombre:
+          type: string
+          example: "Ana"
+        apellidoPat:
+          type: string
+          example: "López"
+        apellidoMat:
+          type: string
+          nullable: true
+          example: "Ramírez"
+        correoElectronico:
+          type: string
+          format: email
+          example: "ana.lopez@ejemplo.com"
+
+    Entrega:
+      type: object
+      required:
+        - direccion
+      properties:
+        direccion:
+          type: string
+          example: "Av. Reforma 123, Col. Centro"
+
+    DetallePedido:
+      allOf:
+        - $ref: '#/components/schemas/CrearDetallePedido'
+        - type: object
+          required:
+            - estadoPedido
+          properties:
+            estadoPedido:
+              $ref: '#/components/schemas/EstadoPedidoEnum'
+
+    EstadoPedidoEnum:
+      type: string
+      enum:
+        - PENDIENTE
+        - CONFIRMADO
+        - ENVIADO
+        - ENTREGADO
+        - CANCELADO
+      example: "PENDIENTE"
+
+    NotFoundErrorRes:
+      type: object
+      required:
+        - codigo
+        - mensaje
+      properties:
+        codigo:
+          type: string
+          example: "PEDIDO_NO_ENCONTRADO"
+        mensaje:
+          type: string
+          example: "No existe un pedido con el identificador proporcionado."
+
+    ErrorResponse:
+      type: object
+      required:
+        - codigo
+        - mensaje
+      properties:
+        codigo:
+          type: string
+          example: "CLIENTE_NO_VALIDO"
+        mensaje:
+          type: string
+          example: "El clienteId especificado no existe."
