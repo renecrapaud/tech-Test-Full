@@ -8,9 +8,9 @@ import {
   TableHead,
   TableRow,
   Paper,
-  InputLabel
+  InputLabel,
+  Input
 } from "@mui/material";
-import { Input } from "@mui/material";
 
 const Pedidos = ({
   listaPedidos,

@@ -1,16 +1,23 @@
+Front end del sistema de pedidos de ventas en línea.
+
+Aplicación desplegada en render.com:
+
+https://pedidos-en-linea-frontend.onrender.com/
+
+FrontEnd desarrolado con: 
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Para desplegar en ambiente local:
 
-Currently, two official plugins are available:
+Se necesita tener instalado pnpm
+En la carpeta raíz ejecutar los comandos:
+pnpm install
+pnpm run dev
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+La página está configurada para consultar las datos mediante la API de pedidos que está desplegada en render:
+https://pedidos-en-linea-back.onrender.com/pedidos
 
-## React Compiler
+Esa versión está configurada para usar la base de datos de mongoDB desde MongoDB Atlas: https://cloud.mongodb.com
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Se puede cambiar la base de datos modificando el archivo en /public/config.json
+Modificando el valor en pedidosApiUrl.
