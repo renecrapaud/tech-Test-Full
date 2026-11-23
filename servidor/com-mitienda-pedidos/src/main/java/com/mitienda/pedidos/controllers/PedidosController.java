@@ -43,15 +43,15 @@ public class PedidosController {
     }
 
      @PostMapping
-    public ResponseEntity<Pedido> agregarNuevo(@RequestBody PedidoRequest pedido) {        
-        return ResponseEntity.ok(this.service.addNew(pedido));
+    public ResponseEntity<Pedido> agregarNuevo(@RequestBody PedidoRequest pedidoReq) {        
+        return ResponseEntity.ok(this.service.addNew(pedidoReq));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pedido> actualizaRegistro(@RequestBody Pedido pedido, @PathVariable String id) {
+    public ResponseEntity<Pedido> actualizaRegistro(@RequestBody PedidoRequest pedidoReq, @PathVariable String id) {
         Optional<Pedido> pedidoOpcional = service.findById(id);
          if (pedidoOpcional.isPresent()) {
-             return ResponseEntity.ok(this.service.update(pedido));
+             return ResponseEntity.ok(this.service.update(pedidoReq));
          }
          return ResponseEntity.notFound().build();
     }

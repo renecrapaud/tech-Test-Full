@@ -11,7 +11,7 @@ public interface PedidosService {
     List<Pedido> findAll();
     Pedido addNew(PedidoRequest pedido);
     Optional<Pedido> findById(String id);
-    Pedido update(Pedido pedido);
+    Pedido update(PedidoRequest pedido);
     void delete(String id);
     
 }

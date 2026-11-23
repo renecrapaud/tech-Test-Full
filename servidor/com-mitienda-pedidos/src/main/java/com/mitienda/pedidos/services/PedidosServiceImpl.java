@@ -48,7 +48,16 @@ public class PedidosServiceImpl implements PedidosService{
     }
 
     @Override
-    public Pedido update(Pedido pedido) {
+    public Pedido update(PedidoRequest pedidoReq) {
+        Cliente cliente = clientesRepository.findById(pedidoReq.clienteId())
+            .orElseThrow(() -> new IllegalArgumentException(
+                "No existe un cliente con id: " + pedidoReq.clienteId()
+            ));
+            Pedido pedido = new Pedido();
+            pedido.setId(pedidoReq.clienteId());
+            pedido.setCliente(cliente);
+            pedido.setEntrega(pedidoReq.entrega());
+            pedido.setPedido(pedidoReq.pedido());
         return repository.save(pedido);
     }
 
