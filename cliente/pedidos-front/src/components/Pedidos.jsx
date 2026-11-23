@@ -8,35 +8,22 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Select,
-  MenuItem,
+  InputLabel
 } from "@mui/material";
 import { Input } from "@mui/material";
 
 const Pedidos = ({
   listaPedidos,
   busqueda,
-  manejadorBusqueda,
-  campo,
-  setCampo,
+  manejadorBusqueda
 }) => {
   return (
     <div className="margenContenido">
       <div className="tituloIzq">
         <h3> Vista general, lista de pedidos </h3>
         <div>
-          <span>Buscar por columna: </span>
-          <Select
-            value={campo}
-            onChange={(e) => setCampo(e.target.value)}
-            labelId="demo-select-small-label"
-          >
-            <MenuItem value="id">Pedido</MenuItem>
-            <MenuItem value="nombre">Nombre</MenuItem>
-            <MenuItem value="correo">Correo</MenuItem>
-            <MenuItem value="estado">Estado</MenuItem>
-          </Select>
-          <Input value={busqueda} onChange={manejadorBusqueda} />
+          <InputLabel> Filtrar resultados </InputLabel>
+          <Input value={busqueda} onChange={manejadorBusqueda} placeholder="Id, nombre, correo, estado"/>
         </div>
       </div>
       <TableContainer component={Paper}>

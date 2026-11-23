@@ -15,7 +15,6 @@ import "./App.css";
 function App() {
   const [pedidos, setPedidos] = useState([]);
   const [campoBusca, setCampoBusca] = useState("");
-  const [colSel, setColumnaSel] = useState("id");
   const { pedidosApiUrl } = useConfig()
 
     useEffect(() => {
@@ -29,18 +28,19 @@ function App() {
     id: (p) => p.id,
     nombre: (p) => p.cliente?.nombre,
     correo: (p) => p.cliente?.correoElectronico,
-    estado: (p) => p.pedido.estadoPedido,
+    estado: (p) => p.pedido?.estadoPedido,
   };
 
-  const pedidosFiltrados =
-    campoBusca == ""
-      ? pedidos
-      : pedidos.filter((pedido) => {
-          const valor = extractores[colSel]?.(pedido);
-          return String(valor ?? "")
-            .toLowerCase()
-            .includes(campoBusca.toLowerCase());
-        });
+  const textoBusqueda = campoBusca.trim().toLowerCase();
+    const pedidosFiltrados =
+      !textoBusqueda ? pedidos
+      : pedidos.filter((pedido) =>
+        Object.values(extractores).some((extractor) =>
+                String(extractor(pedido) ?? "")
+                  .toLowerCase()
+                  .includes(textoBusqueda)
+              )
+        );
 
   const manejaCampoBusca = (event) => {
     setCampoBusca(event.target.value);
@@ -62,8 +62,6 @@ function App() {
                 listaPedidos={pedidosFiltrados}
                 busqueda={campoBusca}
                 manejadorBusqueda={manejaCampoBusca}
-                campo={colSel}
-                setCampo={setColumnaSel}
               />
             }
           />
