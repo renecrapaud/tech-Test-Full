@@ -1,4 +1,4 @@
-package com.mitienda.pedidos;
+package com.mitienda;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

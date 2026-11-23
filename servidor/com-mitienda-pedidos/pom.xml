@@ -8,10 +8,10 @@
 		<version>4.2.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.mitienda.pedidos</groupId>
-	<artifactId>com-mitienda-pedidos</artifactId>
+	<groupId>com.mitienda.api</groupId>
+	<artifactId>com-mitienda-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>com-mitienda-pedidos</name>
+	<name>com-mitienda-api</name>
 	<description/>
 	<url/>
 	<licenses>
@@ -55,6 +55,16 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+		
 	</dependencies>
 
 	<build>
@@ -66,4 +76,16 @@
 		</plugins>
 	</build>
 
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>2026.0.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
